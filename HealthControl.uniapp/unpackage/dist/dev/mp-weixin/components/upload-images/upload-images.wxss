@@ -1,0 +1,25 @@
+/* 需要放到文件最上面 */
+/* 水平间距 */
+/* 水平间距 */
+/*
+ 以下变量是默认值，如不需要修改可以不用给下面的变量重新赋值
+ */
+/* 水平间距 */
+/* 示例容器 */
+.example-body.data-v-c0e2b150 {
+  padding: 10px;
+  padding-top: 0;
+}
+
+/* 自定义图片盒子 */
+.custom-image-box.data-v-c0e2b150 {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 文本样式 */
+.text.data-v-c0e2b150 {
+  font-size: 14px;
+  color: #333;
+}

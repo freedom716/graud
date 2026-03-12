@@ -1,0 +1,167 @@
+/* 需要放到文件最上面 */
+/* 水平间距 */
+/* 水平间距 */
+/*
+ 以下变量是默认值，如不需要修改可以不用给下面的变量重新赋值
+ */
+/* 水平间距 */
+/* 文章容器 */
+.article-container.data-v-6f23e8f5 {
+  padding: 0rpx 40rpx 160rpx;
+  min-height: calc(100vh - 360rpx);
+}
+
+/* 空状态 */
+.empty-state.data-v-6f23e8f5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600rpx;
+}
+.empty-state .empty-text.data-v-6f23e8f5 {
+  color: #999;
+  font-size: 32rpx;
+}
+
+/* 文章项 */
+.article-item.data-v-6f23e8f5 {
+  display: flex;
+  background: #fff;
+  border-radius: 24rpx;
+  margin-bottom: 32rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 文章封面 */
+.article-cover.data-v-6f23e8f5 {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 16rpx;
+  margin-right: 32rpx;
+  flex-shrink: 0;
+}
+
+/* 文章内容区 */
+.article-content.data-v-6f23e8f5 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 文章标题 */
+.article-title.data-v-6f23e8f5 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  line-height: 44rpx;
+  margin-bottom: 16rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 文章信息 */
+.article-info.data-v-6f23e8f5 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+  margin-bottom: 16rpx;
+}
+.article-info .info-item.data-v-6f23e8f5 {
+  font-size: 24rpx;
+  color: #666;
+  padding: 4rpx 12rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+}
+.article-info .status.data-v-6f23e8f5 {
+  color: #fff;
+}
+.article-info .status.status-pending.data-v-6f23e8f5 {
+  background: #ff9500;
+}
+.article-info .status.status-approved.data-v-6f23e8f5 {
+  background: #34c759;
+}
+
+/* 创建时间 */
+.article-time.data-v-6f23e8f5 {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 24rpx;
+}
+
+/* 操作按钮区 */
+.article-actions.data-v-6f23e8f5 {
+  display: flex;
+  gap: 24rpx;
+  margin-top: auto;
+}
+
+/* 操作按钮 */
+.action-btn.data-v-6f23e8f5 {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  border-radius: 12rpx;
+  border: 2rpx solid;
+}
+.action-btn .btn-text.data-v-6f23e8f5 {
+  font-size: 24rpx;
+  margin-left: 8rpx;
+}
+.action-btn.edit-btn.data-v-6f23e8f5 {
+  border-color: #007AFF;
+  background: rgba(0, 122, 255, 0.1);
+}
+.action-btn.edit-btn .btn-text.data-v-6f23e8f5 {
+  color: #007AFF;
+}
+.action-btn.delete-btn.data-v-6f23e8f5 {
+  border-color: #FF3B30;
+  background: rgba(255, 59, 48, 0.1);
+}
+.action-btn.delete-btn .btn-text.data-v-6f23e8f5 {
+  color: #FF3B30;
+}
+
+/* 底部新增按钮容器 */
+.add-button-container.data-v-6f23e8f5 {
+  position: fixed;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+/* 新增按钮 */
+.add-button.data-v-6f23e8f5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color, #007AFF);
+  border-radius: 50rpx;
+  padding: 24rpx 48rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 122, 255, 0.3);
+}
+.add-button .add-text.data-v-6f23e8f5 {
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-left: 12rpx;
+}
+
+/* 响应式设计 - 小屏幕适配 */
+@media (max-width: 750upx) {
+.article-item.data-v-6f23e8f5 {
+    flex-direction: column;
+}
+.article-cover.data-v-6f23e8f5 {
+    width: 100%;
+    height: 240rpx;
+    margin-right: 0;
+    margin-bottom: 24rpx;
+}
+}

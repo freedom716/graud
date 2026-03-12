@@ -1,0 +1,26 @@
+$--colors: (
+  'primary': (
+    'base': #4CAF50,  // 健康绿色 - 代表生命力和健康
+  ),
+  'success': (
+    'base': #8BC34A,  // 清新绿色 - 代表成功和积极
+  ),
+  'warning': (
+    'base': #FF9800,  // 活力橙色 - 代表提醒和注意
+  ),
+  'danger': (
+    'base': #F44336,  // 警示红色 - 代表危险和紧急
+  ),
+  'error': (
+    'base': #E53935,  // 错误红色 - 代表错误状态
+  ),
+  'info': (
+    'base': #2196F3,  // 清新蓝色 - 代表信息和平静
+  ),
+);
+/* just override what you need */
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+    $colors: $--colors
+);
+
+@use "element-plus/theme-chalk/src/index.scss" as *;

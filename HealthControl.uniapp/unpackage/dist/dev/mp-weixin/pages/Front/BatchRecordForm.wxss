@@ -1,0 +1,217 @@
+/* 需要放到文件最上面 */
+/* 水平间距 */
+/* 水平间距 */
+/*
+ 以下变量是默认值，如不需要修改可以不用给下面的变量重新赋值
+ */
+/* 水平间距 */
+/* 页面内容区域 */
+.page-content.data-v-b3a71a80 {
+  padding: 10rpx 24rpx 140rpx;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 头部信息卡片 */
+.header-info.data-v-b3a71a80 {
+  margin-bottom: 32rpx;
+}
+.info-card.data-v-b3a71a80 {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+.info-icon.data-v-b3a71a80 {
+  width: 60rpx;
+  height: 60rpx;
+  background: #f0f8f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+.info-text.data-v-b3a71a80 {
+  flex: 1;
+}
+.info-title.data-v-b3a71a80 {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 4rpx;
+}
+.info-subtitle.data-v-b3a71a80 {
+  font-size: 24rpx;
+  color: #666666;
+}
+
+/* 表单容器 */
+.form-container.data-v-b3a71a80 {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding: 0px;
+}
+
+/* 表单项 */
+.form-item.data-v-b3a71a80 {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+/* 指标信息区域 */
+.indicator-info.data-v-b3a71a80 {
+  margin-bottom: 24rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.indicator-header.data-v-b3a71a80 {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+}
+.indicator-icon.data-v-b3a71a80 {
+  width: 60rpx;
+  height: 60rpx;
+  background: #f0f8f0;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.icon-image.data-v-b3a71a80 {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 8rpx;
+}
+.indicator-details.data-v-b3a71a80 {
+  flex: 1;
+}
+.indicator-name.data-v-b3a71a80 {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 4rpx;
+}
+.indicator-category.data-v-b3a71a80 {
+  font-size: 22rpx;
+  color: #888888;
+  margin-bottom: 4rpx;
+}
+.indicator-threshold.data-v-b3a71a80 {
+  font-size: 24rpx;
+  color: #4CAF50;
+  font-weight: 500;
+}
+.indicator-description.data-v-b3a71a80 {
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 1.5;
+}
+
+/* 输入区域 */
+.input-section.data-v-b3a71a80 {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.input-group.data-v-b3a71a80 {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.input-label.data-v-b3a71a80 {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333333;
+}
+.input-wrapper.data-v-b3a71a80 {
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  border: 2rpx solid transparent;
+  transition: border-color 0.3s ease;
+}
+.input-wrapper.data-v-b3a71a80:focus-within {
+  border-color: #4CAF50;
+  background: #ffffff;
+}
+.data-input.data-v-b3a71a80 {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.unit-text.data-v-b3a71a80 {
+  font-size: 24rpx;
+  color: #888888;
+  margin-left: 12rpx;
+}
+.time-input.data-v-b3a71a80 {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  padding: 4rpx 0;
+}
+
+/* 异常提示 */
+.abnormity-tip.data-v-b3a71a80 {
+  display: flex;
+  align-items: center;
+  background: #fff3e0;
+  border: 2rpx solid #ffcc80;
+  border-radius: 8rpx;
+  padding: 12rpx 16rpx;
+  margin-top: 8rpx;
+}
+.tip-text.data-v-b3a71a80 {
+  font-size: 24rpx;
+  color: #FF9800;
+  margin-left: 8rpx;
+}
+
+/* 提交区域 */
+.submit-section.data-v-b3a71a80 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 24rpx;
+  background: #ffffff;
+  box-shadow: 0 -4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+.submit-btn.data-v-b3a71a80 {
+  width: 100%;
+  height: 88rpx;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+}
+.submit-btn.data-v-b3a71a80:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+.submit-btn[disabled].data-v-b3a71a80 {
+  background: #cccccc;
+  box-shadow: none;
+  opacity: 0.6;
+}

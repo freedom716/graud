@@ -1,0 +1,213 @@
+/* 需要放到文件最上面 */
+/* 水平间距 */
+/* 水平间距 */
+/*
+ 以下变量是默认值，如不需要修改可以不用给下面的变量重新赋值
+ */
+/* 水平间距 */
+/* 页面内容区域 */
+.page-content.data-v-e3b59ed8 {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+}
+
+/* 页面描述区域 */
+.page-description.data-v-e3b59ed8 {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
+}
+.description-text.data-v-e3b59ed8 {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* 分类列表 */
+.category-list.data-v-e3b59ed8 {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+/* 分类项 */
+.category-item.data-v-e3b59ed8 {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+/* 分类头部 */
+.category-header.data-v-e3b59ed8 {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.category-header.data-v-e3b59ed8:active {
+  background-color: #f8f8f8;
+}
+
+/* 分类图标 */
+.category-icon.data-v-e3b59ed8 {
+  width: 52rpx;
+  height: 52rpx;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  box-shadow: 0 2rpx 6rpx rgba(76, 175, 80, 0.3);
+}
+
+/* 分类信息 */
+.category-info.data-v-e3b59ed8 {
+  flex: 1;
+}
+.category-name.data-v-e3b59ed8 {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 4rpx;
+}
+.category-count.data-v-e3b59ed8 {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+/* 展开箭头 */
+.expand-arrow.data-v-e3b59ed8 {
+  transition: transform 0.3s ease;
+}
+.expand-arrow.expanded.data-v-e3b59ed8 {
+  transform: rotate(180deg);
+}
+
+/* 指标列表 */
+.indicator-list.data-v-e3b59ed8 {
+  border-top: 1rpx solid #f0f0f0;
+  background-color: #fafafa;
+}
+
+/* 指标项 */
+.indicator-item.data-v-e3b59ed8 {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+.indicator-item.data-v-e3b59ed8:last-child {
+  border-bottom: none;
+}
+.indicator-item.data-v-e3b59ed8:active {
+  background-color: #f0f0f0;
+}
+
+/* 指标封面 */
+.indicator-cover.data-v-e3b59ed8 {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  margin-right: 16rpx;
+  background-color: #f5f5f5;
+}
+.cover-image.data-v-e3b59ed8 {
+  width: 100%;
+  height: 100%;
+}
+.cover-placeholder.data-v-e3b59ed8 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+/* 指标内容 */
+.indicator-content.data-v-e3b59ed8 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.indicator-name.data-v-e3b59ed8 {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 6rpx;
+}
+.indicator-description.data-v-e3b59ed8 {
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 1.4;
+  margin-bottom: 8rpx;
+}
+.indicator-threshold.data-v-e3b59ed8 {
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+}
+.threshold-label.data-v-e3b59ed8 {
+  color: #999999;
+  margin-right: 4rpx;
+}
+.threshold-value.data-v-e3b59ed8 {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+/* 选择按钮 */
+.select-btn.data-v-e3b59ed8 {
+  width: 48rpx;
+  height: 48rpx;
+  border: 2rpx solid #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  /* 已选择状态样式 */
+}
+.select-btn.data-v-e3b59ed8:active {
+  background-color: #4CAF50;
+  transform: scale(0.9);
+}
+.select-btn.selected.data-v-e3b59ed8 {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+/* 空状态 */
+.empty-state.data-v-e3b59ed8 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 24rpx;
+  text-align: center;
+}
+.empty-icon.data-v-e3b59ed8 {
+  margin-bottom: 24rpx;
+  opacity: 0.6;
+}
+.empty-text.data-v-e3b59ed8 {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #999999;
+  margin-bottom: 12rpx;
+}
+.empty-description.data-v-e3b59ed8 {
+  font-size: 26rpx;
+  color: #cccccc;
+  line-height: 1.5;
+}

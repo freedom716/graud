@@ -1,0 +1,192 @@
+/* 需要放到文件最上面 */
+/* 水平间距 */
+/* 水平间距 */
+/*
+ 以下变量是默认值，如不需要修改可以不用给下面的变量重新赋值
+ */
+/* 水平间距 */
+/* 容器样式 */
+.recipe-container.data-v-bf31baef {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 内容区域 */
+.content-wrapper.data-v-bf31baef {
+  padding: 20rpx 30rpx 100rpx 30rpx;
+  min-height: calc(100vh - 360rpx);
+}
+
+/* 食谱列表样式 */
+.recipe-list.data-v-bf31baef {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+.recipe-item.data-v-bf31baef {
+  background: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+.recipe-item.data-v-bf31baef:active {
+  transform: translateY(-2rpx);
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.12);
+}
+
+/* 视频区域 */
+.recipe-video.data-v-bf31baef {
+  position: relative;
+  height: 400rpx;
+  background-color: #000;
+  /* 确保视频背景为黑色 */
+}
+.video-player.data-v-bf31baef {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.audit-status.data-v-bf31baef {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: white;
+  font-weight: 500;
+}
+.status-approved.data-v-bf31baef {
+  background-color: #34c759;
+}
+.status-pending.data-v-bf31baef {
+  background-color: #ff9500;
+}
+.status-rejected.data-v-bf31baef {
+  background-color: #ff3b30;
+}
+
+/* 食谱信息 */
+.recipe-info.data-v-bf31baef {
+  padding: 30rpx;
+}
+.recipe-title.data-v-bf31baef {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+  line-height: 1.4;
+}
+.recipe-meta.data-v-bf31baef {
+  display: flex;
+  gap: 30rpx;
+  margin-bottom: 20rpx;
+}
+.meta-item.data-v-bf31baef {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 审核回复 */
+.audit-reply.data-v-bf31baef {
+  background-color: #f8f9fa;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  border-left: 4rpx solid var(--primary-color);
+}
+.reply-label.data-v-bf31baef {
+  font-size: 24rpx;
+  color: #666;
+  font-weight: 500;
+}
+.reply-content.data-v-bf31baef {
+  font-size: 26rpx;
+  color: #333;
+  margin-left: 10rpx;
+}
+
+/* 操作按钮区 */
+.recipe-actions.data-v-bf31baef {
+  display: flex;
+  padding: 0 30rpx 30rpx;
+  gap: 24rpx;
+  margin-top: auto;
+}
+
+/* 操作按钮 */
+.action-btn.data-v-bf31baef {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  border-radius: 12rpx;
+  border: 2rpx solid;
+}
+.action-btn .btn-text.data-v-bf31baef {
+  font-size: 24rpx;
+  margin-left: 8rpx;
+}
+.action-btn.edit-btn.data-v-bf31baef {
+  border-color: var(--primary-color);
+  background: rgba(16, 185, 129, 0.1);
+}
+.action-btn.edit-btn .btn-text.data-v-bf31baef {
+  color: var(--primary-color);
+}
+.action-btn.delete-btn.data-v-bf31baef {
+  border-color: #FF3B30;
+  background: rgba(255, 59, 48, 0.1);
+}
+.action-btn.delete-btn .btn-text.data-v-bf31baef {
+  color: #FF3B30;
+}
+
+/* 空状态 */
+.empty-state.data-v-bf31baef {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 60rpx;
+  text-align: center;
+}
+.empty-text.data-v-bf31baef {
+  font-size: 32rpx;
+  color: #999;
+  margin: 30rpx 0 15rpx;
+  font-weight: 500;
+}
+.empty-desc.data-v-bf31baef {
+  font-size: 26rpx;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+/* 底部新增按钮容器 */
+.add-button-container.data-v-bf31baef {
+  position: fixed;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+/* 新增按钮 */
+.add-button.data-v-bf31baef {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color, #10b981);
+  border-radius: 50rpx;
+  padding: 24rpx 48rpx;
+  box-shadow: 0 8rpx 24rpx rgba(16, 185, 129, 0.3);
+}
+.add-button .add-text.data-v-bf31baef {
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-left: 12rpx;
+}

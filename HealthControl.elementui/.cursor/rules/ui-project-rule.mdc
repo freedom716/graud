@@ -1,0 +1,95 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+## 技术栈
+
+- 前端框架：Vue3（Composition API + `<script setup>`）
+- UI 组件库：ElementPlus（已全局注册图标）
+- 状态管理：Pinia
+- 网络请求：axios 封装为 `Post` 方法，路径：`@/api/http`
+- 构建工具：Vite 或 Vue CLI（无需关注）
+- 样式预处理器：SCSS
+- 图形可视化: Echart
+- 时间处理：moment
+
+## 项目结构约定
+
+- `@/assets/`：静态资源（图片、默认头像、错误图等）
+- `@/components/`：通用组件
+- `@/views/`：页面视图
+- `@/store/`：Pinia 状态管理
+- `@/api/http`：封装的请求方法（导出 Post、Get 等）
+- `@/styles/`：全局 SCSS 变量/混入/样式
+- `@/router` : 路由定义
+
+## 样式规范
+
+- 所有 `<style>` 标签必须添加 `scoped` 和 `lang="scss"`：
+  ```vue
+  <style scoped lang="scss">
+  .example {
+    color: $primary-color;
+  }
+  </style>
+  ```
+- 优先使用 `@/styles/` 中定义的变量或 mixin，避免重复写样式。
+- 不要使用全局样式污染，除非明确需要。
+- 在使用 display: grid;的时候需要考虑设置 width: 100%;
+- 不要使用渐变的背景
+
+## Vue 表单对象命名规范
+
+- 在 Vue 3 项目中，表单存储对象请统一使用 `formData` 命名格式，而不是 `form`。
+
+## 主要逻辑处理
+
+- 后端接口返回的对象格式都是大写的驼峰命令,请勿使用小写
+- 传值给后端的参数都要求是大写的驼峰命名
+- 接口请求最后是 List 命名的都是分页查询,需要进行结构出 Items,写法可以参考如下
+  const { Data: { Items } } = await Post("/controller/List", { });
+- 在使用 PaginationBox 分页组件的时候,请使用 Reload()方法,写法可以参考如下
+  TopicPaginationBox.value.Reload(where);
+- 在使用一些常规的日期时间格式、手机号格式化、姓名格式化、替换 html 标签等等方法时候,可以阅读下 src/base.js 里面的 window 方法 请在 javascript 中使用
+
+```
+ window.YMDHMSFormat  得到完整的时间格式 年-月-日 时分秒
+ window.YMDFormat     得到完整的时间格式 年-月-日
+ window.HMSFormat     得到时分秒格式
+ window.ToFixed2      保留2位小数
+ window.ToFixed3      保留3位小数
+ window.PhoneFormat   手机号格式化
+ window.NameFormat    姓名格式化
+```
+
+不要再 html 中使用 window 方法 如下错误用法
+
+```
+     <span>{{ window.YMDHMSFormat(item.ActivityTime) }}</span>
+```
+
+- 新添加页面的时候需要考虑在 router 的 index.js 中完成路由的定义,值得注意的是要区分是前台页面还是后台页面
+- 表单必须要使用 v-if 来进行渲染,避免部分显示不出来,写法可以参考如下
+  <el-form v-if="editorShow"></el-form>
+- 在做一些操作的时候,比如审核动作、同意动作、接受动作等等操作的时候需要你调用新的后端接口,而不是全部调用 CreateOrEdit 来操作
+- 在进行路由跳转的时候,传入 Id 参数的时候一般是需要带模块前缀的,写法可以参考如下
+  const goToActivityDetail = (id) => {
+  router.push({ path: '/Front/ActivityDetail', query: { ActivityId: id } })
+  }
+- 在从 pina 中获取到 RoleType 进行判断的时候,RoleType 返回的是具体的描述,写法可以参考如下
+  if (RoleType.value == "管理员")
+
+## echart 图形可视化处理规则
+
+- 考虑数据过多的情况
+- 使用的技术是 echart
+- 饼状图和柱状图要显示出百分比
+- 饼图的 legend 要考虑太多的情况,直接使用 orient:horizontal 和 left:center -后端返回的时候数据有小数点超过 3 位,然后只要显示出 2 位即可
+- 在做一些除法的时候要考虑底数为 0 的情况,从而导致显示 NaN
+
+## 用户相关资源
+
+- 默认头像导入：
+  import defaultAvatar from "@/assets/默认头像.png";

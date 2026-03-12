@@ -1,0 +1,255 @@
+/* 需要放到文件最上面 */
+/* 水平间距 */
+/* 水平间距 */
+/*
+ 以下变量是默认值，如不需要修改可以不用给下面的变量重新赋值
+ */
+/* 水平间距 */
+.content.data-v-80f964fb {
+  /* 导航栏高度 */
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  margin-top: 10rpx;
+}
+
+/* 查询区域样式 */
+.query-section.data-v-80f964fb {
+  background-color: #fff;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  margin: 0 20rpx 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+.query-item.data-v-80f964fb {
+  margin-bottom: 20rpx;
+}
+.query-label.data-v-80f964fb {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+.time-range-container.data-v-80f964fb {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+.time-separator.data-v-80f964fb {
+  font-size: 28rpx;
+  color: #666;
+  margin: 0 10rpx;
+}
+.query-buttons.data-v-80f964fb {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+.query-btn.data-v-80f964fb,
+.reset-btn.data-v-80f964fb {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  border: none;
+}
+.query-btn.data-v-80f964fb {
+  background-color: var(--primary-color, #007aff);
+  color: #fff;
+}
+.reset-btn.data-v-80f964fb {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* 记录列表样式 */
+.record-list.data-v-80f964fb {
+  padding: 0 20rpx;
+}
+.empty-state.data-v-80f964fb {
+  text-align: center;
+  padding: 100rpx 0;
+}
+.empty-text.data-v-80f964fb {
+  font-size: 32rpx;
+  color: #999;
+}
+.record-item.data-v-80f964fb {
+  margin-bottom: 20rpx;
+}
+.record-card.data-v-80f964fb {
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 记录头部 */
+.record-header.data-v-80f964fb {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+.indicator-main.data-v-80f964fb {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 20rpx;
+}
+
+/* 指标图标样式 */
+.indicator-icon.data-v-80f964fb {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.icon-image.data-v-80f964fb {
+  width: 100%;
+  height: 100%;
+  border-radius: 12rpx;
+}
+.icon-placeholder.data-v-80f964fb {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+}
+.placeholder-text.data-v-80f964fb {
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.indicator-info.data-v-80f964fb {
+  flex: 1;
+}
+.indicator-name.data-v-80f964fb {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 8rpx;
+}
+.indicator-type.data-v-80f964fb {
+  font-size: 24rpx;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+}
+.record-actions.data-v-80f964fb {
+  margin-left: 20rpx;
+}
+.delete-btn.data-v-80f964fb {
+  background-color: #ff4757;
+  color: #fff;
+  border: none;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+/* 记录值区域 */
+.record-value-section.data-v-80f964fb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  background-color: #f8f9fa;
+  border-radius: 8rpx;
+}
+.value-container.data-v-80f964fb {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+.value-label.data-v-80f964fb {
+  font-size: 28rpx;
+  color: #666;
+}
+.record-value.data-v-80f964fb {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #28a745;
+}
+.record-value.abnormal.data-v-80f964fb {
+  color: #dc3545;
+}
+.abnormal-tag.data-v-80f964fb {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+}
+.abnormal-text.data-v-80f964fb {
+  font-size: 20rpx;
+}
+
+/* 阈值信息 */
+.threshold-section.data-v-80f964fb {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 20rpx;
+  padding: 15rpx;
+  background-color: #e8f4f8;
+  border-radius: 8rpx;
+}
+.threshold-label.data-v-80f964fb {
+  font-size: 26rpx;
+  color: #666;
+}
+.threshold-value.data-v-80f964fb {
+  font-size: 26rpx;
+  color: #007aff;
+  font-weight: 500;
+}
+
+/* 元数据信息 */
+.record-meta.data-v-80f964fb {
+  margin-bottom: 20rpx;
+}
+.meta-item.data-v-80f964fb {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 8rpx;
+}
+.meta-label.data-v-80f964fb {
+  font-size: 26rpx;
+  color: #666;
+  min-width: 120rpx;
+}
+.meta-value.data-v-80f964fb {
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 指标描述 */
+.indicator-description.data-v-80f964fb {
+  border-top: 1rpx solid #eee;
+  padding-top: 20rpx;
+}
+.description-label.data-v-80f964fb {
+  font-size: 26rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 8rpx;
+}
+.description-text.data-v-80f964fb {
+  font-size: 26rpx;
+  color: #333;
+  line-height: 1.5;
+}

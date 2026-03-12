@@ -1,0 +1,38 @@
+{
+  "pages": [
+    { "path": "pages/Front/Index" },
+    { "path": "pages/Front/Login" },
+    { "path": "pages/Front/Register" },
+    { "path": "pages/Front/ForgetPassword" },
+    { "path": "pages/Front/UserCenter" },
+    { "path": "pages/Front/PasswordEdit" },
+    { "path": "pages/Front/UserInfoEdit" },
+    { "path": "pages/Front/HealthIndicatorList" },
+    { "path": "pages/Templete/HealthIndicatorTypeList" },
+    { "path": "pages/Front/CommHealthIndicatorTypeList" },
+    { "path": "pages/Front/HealthIndicatorForm" },
+    { "path": "pages/Front/BatchRecordForm" },
+    { "path": "pages/Front/HealthIndicatorRecordList" },
+    { "path": "pages/Front/FoodList" },
+    { "path": "pages/Front/DietRecordList" },
+    { "path": "pages/Front/HealthArticleList" },
+    { "path": "pages/Front/HealthArticleForm" },
+    { "path": "pages/Front/MyHealthArticleList" },
+    { "path": "pages/Front/HealthArticleDetail" },
+    { "path": "pages/Front/RecipeList" },
+    { "path": "pages/Front/RecipeForm" },
+    { "path": "pages/Front/RecipeDetail" },
+    { "path": "pages/Front/MyRecipeList" },
+    { "path": "pages/Front/CollectRecordList" },
+    { "path": "pages/Front/LikeRecordList" },
+    { "path": "pages/Front/HealthView" },
+    { "path": "pages/Front/AiAnalyse" },
+    { "path": "pages/Front/HealthNoticeList" },
+    { "path": "pages/Front/HealthNoticeForm" },
+    { "path": "pages/Front/WeChatBind" }
+  ],
+  "globalStyle": {
+      "navigationStyle": "custom"
+    }
+	
+}
