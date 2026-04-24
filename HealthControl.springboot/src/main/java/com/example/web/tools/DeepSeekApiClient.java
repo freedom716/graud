@@ -1,10 +1,9 @@
 package com.example.web.tools;
 
 import com.example.web.config.AiConfig;
-import com.example.web.tools.dto.DeepSeekRequestDto;
-import com.example.web.tools.dto.DeepSeekResponseDto;
+import com.example.web.dto.DeepSeekRequestDto;
+import com.example.web.dto.AiHealthAnalysisResponseDto;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Slf4j
@@ -25,7 +25,13 @@ public class DeepSeekApiClient {
     private final ObjectMapper objectMapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    public String analyzeHealth(String prompt) {
+    /**
+     * ⭐ 最终正确返回结构
+     */
+    public AiHealthAnalysisResponseDto analyzeHealth(String prompt) {
+
+        AiHealthAnalysisResponseDto responseDto = new AiHealthAnalysisResponseDto();
+
         try {
 
             DeepSeekRequestDto request = buildRequest(prompt);
@@ -34,108 +40,107 @@ public class DeepSeekApiClient {
             headers.put("Authorization", "Bearer " + aiConfig.getApiKey());
             headers.put("Content-Type", "application/json");
 
-            String responseStr;
-
-            if (Boolean.TRUE.equals(aiConfig.getMockMode())) {
-                responseStr = readMockResponse();
-                log.info("Mock模式启动");
-            } else {
-                responseStr = HttpUtils.Post(aiConfig.getApiUrl(), request, headers);
-            }
+            String responseStr = Boolean.TRUE.equals(aiConfig.getMockMode())
+                    ? readMockResponse()
+                    : HttpUtils.Post(aiConfig.getApiUrl(), request, headers);
 
             if (responseStr == null || responseStr.isBlank()) {
-                log.error("AI返回为空");
-                return null;
+                responseDto.setSuccess(false);
+                responseDto.setErrorMessage("AI返回为空");
+                return responseDto;
             }
 
-            log.info("DeepSeek原始返回：{}", responseStr);
-
-            // ===================== ⭐ 关键修复 =====================
             String content = extractContent(responseStr);
+            content = cleanContent(content);
 
             if (content == null || content.isBlank()) {
-                log.error("content为空");
-                return null;
+                responseDto.setSuccess(false);
+                responseDto.setErrorMessage("AI content为空");
+                return responseDto;
             }
 
-            log.info("提取AI内容：{}", content);
+            log.info("AI最终内容：{}", content);
 
-            // 直接返回 JSON 字符串
-            return content;
+            // ⭐ 关键：解析内部类
+            AiHealthAnalysisResponseDto.AnalysisResult result =
+                    objectMapper.readValue(
+                            content,
+                            AiHealthAnalysisResponseDto.AnalysisResult.class
+                    );
+
+            responseDto.setSuccess(true);
+            responseDto.setAnalysisResult(result);
+            responseDto.setAnalysisTime(LocalDateTime.now());
+
+            return responseDto;
 
         } catch (Exception e) {
-            log.error("DeepSeek调用失败", e);
-            return null;
+            log.error("AI分析失败", e);
+            responseDto.setSuccess(false);
+            responseDto.setErrorMessage(e.getMessage());
+            return responseDto;
         }
     }
 
-    // ===================== ⭐ 核心优化：安全提取 =====================
-    private String extractContent(String responseStr) {
-        try {
-            JsonNode root = objectMapper.readTree(responseStr);
-
-            JsonNode choices = root.path("choices");
-
-            if (!choices.isArray() || choices.size() == 0) {
-                return null;
-            }
-
-            JsonNode message = choices.get(0).path("message");
-
-            if (message.isMissingNode()) {
-                return null;
-            }
-
-            return message.path("content").asText(null);
-
-        } catch (Exception e) {
-            log.error("解析DeepSeek结构失败", e);
-            return null;
-        }
-    }
-
+    // ===================== 请求构建 =====================
     private DeepSeekRequestDto buildRequest(String prompt) {
-
-        DeepSeekRequestDto request = new DeepSeekRequestDto();
-        request.setModel(aiConfig.getModel());
-        request.setMax_tokens(aiConfig.getMaxTokens());
-        request.setTemperature(aiConfig.getTemperature());
 
         Map<String, String> format = new HashMap<>();
         format.put("type", "json_object");
-        request.setResponse_format(format);
 
         List<DeepSeekRequestDto.Message> messages = new ArrayList<>();
-
         messages.add(buildMessage("system", getSystemPrompt()));
         messages.add(buildMessage("user", prompt));
 
-        request.setMessages(messages);
-
-        return request;
+        return DeepSeekRequestDto.builder()
+                .model(aiConfig.getModel())
+                .messages(messages)
+                .responseFormat(format)
+                .maxTokens(aiConfig.getMaxTokens())
+                .temperature(aiConfig.getTemperature())
+                .build();
     }
 
     private DeepSeekRequestDto.Message buildMessage(String role, String content) {
-        DeepSeekRequestDto.Message m = new DeepSeekRequestDto.Message();
-        m.setRole(role);
-        m.setContent(content);
-        return m;
+        return DeepSeekRequestDto.Message.builder()
+                .role(role)
+                .content(content)
+                .build();
     }
 
+    // ===================== 提取 content =====================
+    private String extractContent(String responseStr) {
+        try {
+            var root = objectMapper.readTree(responseStr);
+            return root.path("choices")
+                    .get(0)
+                    .path("message")
+                    .path("content")
+                    .asText(null);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // ===================== 清洗 =====================
+    private String cleanContent(String content) {
+        return content
+                .replace("```json", "")
+                .replace("```", "")
+                .trim();
+    }
+
+    // ===================== mock =====================
     private String readMockResponse() {
         try {
-            String path = "external-resources/airesult.txt";
-            String content = Files.readString(Paths.get(path));
-            log.info("读取mock成功");
-            return content;
+            return Files.readString(Paths.get("external-resources/airesult.txt"));
         } catch (IOException e) {
-            log.error("读取mock失败", e);
             return """
             {
               "choices": [
                 {
                   "message": {
-                    "content": "{\\"score\\":80,\\"evaluation\\":\\"一般\\",\\"problems\\":[],\\"suggestions\\":[]}"
+                    "content": "{\\"score\\":80,\\"evaluation\\":\\"良好\\",\\"summary\\":\\"正常\\",\\"problems\\":[],\\"suggestions\\":[]}"
                   }
                 }
               ]
@@ -146,11 +151,9 @@ public class DeepSeekApiClient {
 
     private String getSystemPrompt() {
         return """
-你是专业健康分析AI，只允许输出JSON，不允许任何解释文字。
-
-必须严格返回JSON结构，不得多字，不得markdown，不得说明。
-
-输出必须是可解析JSON。
+你是专业健康分析AI，只输出JSON，不允许解释。
+必须包含：
+score, evaluation, summary, risks, nutrition, sport, problems, suggestions
 """;
     }
 }
