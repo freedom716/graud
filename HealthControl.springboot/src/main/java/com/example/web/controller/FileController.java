@@ -1,11 +1,9 @@
 package com.example.web.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
+import java.io.FileOutputStream;;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +25,7 @@ public class FileController {
 
     /**
      * 批量文件上传
-     * 
+     *
      * @param files 上传的文件
      * @return
      */
@@ -62,8 +60,9 @@ public class FileController {
             // 生成一个随机数
             Long randomNumber = (long) (Math.random() * 1000000000);
 
+
             // 声明一个保存目录的路径
-            String dirPath = Path.of(filePath, "external-resources", randomNumber.toString()).toString();
+            String dirPath = filePath + "\\external-resources\\" + randomNumber;
 
             // 创建一个文件或者文件夹的操作对象
             File dirFile = new File(dirPath);
@@ -78,8 +77,7 @@ public class FileController {
             // try catch处理流 防止报错导致系统崩掉
             try {
                 // 创建一个文件
-                String fullFilePath = Path.of(dirPath, originFileName).toString();
-                fileOutputStream = new FileOutputStream(fullFilePath);
+                fileOutputStream = new FileOutputStream(dirPath + "\\" + originFileName);
                 // 把前端传入的内容以byte是格式写入到流里面
                 fileOutputStream.write(file.getBytes());
                 // 结束流
@@ -87,9 +85,7 @@ public class FileController {
                 // 关闭流
                 fileOutputStream.close();
                 // 定义一个返回给前端的路径地址
-                String encodedFileName = URLEncoder.encode(originFileName, StandardCharsets.UTF_8).replace("+", "%20");
-                String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/"
-                        + randomNumber + "/" + encodedFileName;
+                String url = "http://localhost:7245/" + randomNumber + "/" + originFileName;
                 // 加入到返回的列表中
                 fileResultDtos.add(new FileResultDto(url, originFileName));
 
