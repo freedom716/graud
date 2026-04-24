@@ -238,10 +238,24 @@ const tabList = ref([
     { id: 'indicators', name: '指标', emoji: '📊' },
     { id: 'recommendations', name: '建议', emoji: '💡' }
 ]);
+const ensureUserId = async () => {
+    if (UserId.value) return UserId.value;
+
+    if (!commonStore.Token) {
+        uni.reLaunch({ url: '/pages/Front/Login' });
+        return null;
+    }
+
+    const { Data, Success } = await commonStore.GetInfo();
+    return Success ? Data?.Id || null : null;
+};
 
 // 生命周期钩子
 onLoad(async (option) => {
-    analysisData.UserId = UserId.value;
+    const currentUserId = await ensureUserId();
+        if (!currentUserId) return;
+    
+        analysisData.UserId = currentUserId;
     // 页面显示时的逻辑
     getAiAnalyseApi();
 });
@@ -320,9 +334,8 @@ const shouldExcludeText = (...texts) => {
 
 const filterAnalysisItems = (result) => ({
     ...result,
-    HealthRisks: result.HealthRisks.filter(risk => !shouldExcludeText(risk?.RiskType, risk?.Description, risk?.Suggestions)),
-    IndicatorAnalyses: result.IndicatorAnalyses.filter(indicator => !shouldExcludeText(indicator?.IndicatorName)),
-    Recommendations: result.Recommendations.filter(item => !shouldExcludeText(item?.RecommendationType, item?.Title, item?.Content))
+    // 仅过滤不支持的指标项，避免把风险/建议整体过滤空
+    IndicatorAnalyses: result.IndicatorAnalyses.filter(indicator => !shouldExcludeText(indicator?.IndicatorName))
 });
 
 const normalizeAnalysisResult = (result) => {
@@ -352,9 +365,13 @@ const getAiAnalyseApi = async () => {
         loading.value = true;
         error.value = false;
         analysisResult.value = null;
+		 const currentUserId = await ensureUserId();
+		        if (!currentUserId) {
+		            throw new Error('用户信息未获取，请重新登录');
+		        }
 
         let response = await Post('/AiAnalyse/AnalyzeUserHealth', {
-            UserId: UserId.value,
+             UserId: currentUserId,
             Days: 7
         });
 
@@ -416,10 +433,9 @@ const getPriorityType = (priority) => {
 
 // 格式化分析时间
 const formatAnalysisTime = (timeString) => {
-    if (!timeString) return '暂无时间';
+	if (!timeString) return '暂无时间';
     const date = new Date(timeString);
-    if (Number.isNaN(date.getTime())) return '暂无时间';
-
+	if (Number.isNaN(date.getTime())) return '暂无时间';
     return date.toLocaleString('zh-CN', {
         year: 'numeric',
         month: '2-digit',
@@ -432,17 +448,16 @@ const formatAnalysisTime = (timeString) => {
 // 获取风险类型对应的emoji
 const getRiskEmoji = (riskType) => {
     const type = String(riskType || '');
-    if (type.includes('体重')) return '⚖️';
-    if (type.includes('营养')) return '🥗';
-    if (type.includes('心血管')) return '❤️';
-    return '⚠️';
+        if (type.includes('体重')) return '⚖️';
+        if (type.includes('营养')) return '🥗';
+        if (type.includes('心血管')) return '❤️';
 };
 
 // 获取指标名称对应的emoji
 const getIndicatorEmoji = (indicatorName) => {
-    const name = String(indicatorName || '');
-    if (name.includes('体重')) return '⚖️';
-    if (name.includes('体温')) return '🌡️';
+     const name = String(indicatorName || '');
+         if (name.includes('体重')) return '⚖️';
+         if (name.includes('体温')) return '🌡️';
     return '📊';
 };
 
