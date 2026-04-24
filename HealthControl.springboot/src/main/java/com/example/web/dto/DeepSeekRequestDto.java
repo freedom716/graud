@@ -1,13 +1,17 @@
-package com.example.web.tools.dto;
+package com.example.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 
 /**
- * DeepSeek API请求DTO
+ * DeepSeek API请求DTO（工业级优化版）
  */
 @Data
+@Builder
 public class DeepSeekRequestDto {
 
     /**
@@ -16,29 +20,33 @@ public class DeepSeekRequestDto {
     private String model;
 
     /**
-     * 消息列表
+     * 消息列表（支持多轮对话）
      */
     private List<Message> messages;
 
     /**
-     * 响应格式
+     * 响应格式（强制JSON输出）
      */
-    private Map<String, String> response_format;
+    @JsonProperty("response_format")
+    private Map<String, String> responseFormat;
 
     /**
-     * 最大令牌数
+     * 最大token数
      */
-    private Integer max_tokens;
+    @JsonProperty("max_tokens")
+    private Integer maxTokens;
 
     /**
-     * 温度参数
+     * 温度参数（0~1）
      */
     private Double temperature;
 
     @Data
+    @Builder
     public static class Message {
+
         /**
-         * 角色 (system/user/assistant)
+         * system / user / assistant
          */
         private String role;
 
