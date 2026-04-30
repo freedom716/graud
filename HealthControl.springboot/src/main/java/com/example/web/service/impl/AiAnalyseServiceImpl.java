@@ -6,8 +6,6 @@ import com.example.web.entity.*;
 import com.example.web.mapper.*;
 import com.example.web.service.AiAnalyseService;
 import com.example.web.tools.DeepSeekApiClient;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,8 +36,6 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
     @Autowired
     private FoodUnitMapper foodUnitMapper;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
     public AiHealthAnalysisResponseDto analyzeUserHealth(Integer userId, Integer days) {
         try {
@@ -59,11 +55,45 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
 
             String prompt = buildAnalysisPrompt(requestDto, score);
 
-            AiHealthAnalysisResponseDto response = deepSeekApiClient.analyzeHealth(prompt);
+            // ===================== ⭐关键修复 =====================
+            AiHealthAnalysisResponseDto aiResponse =
+                    deepSeekApiClient.analyzeHealth(prompt);
 
-            if (response == null) {
+            if (aiResponse == null) {
                 return buildErrorResponse("AI返回为空");
             }
+
+            // ===================== 构造统一返回 =====================
+            AiHealthAnalysisResponseDto response = new AiHealthAnalysisResponseDto();
+            response.setSuccess(true);
+            response.setAnalysisTime(LocalDateTime.now());
+
+            AiHealthAnalysisResponseDto.AnalysisResult result =
+                    aiResponse.getAnalysisResult();
+
+            // ❗安全兜底（防止AI字段缺失）
+            if (result == null) {
+                result = new AiHealthAnalysisResponseDto.AnalysisResult();
+                result.setScore(score);
+                result.setEvaluation("一般");
+                result.setProblems(new ArrayList<>());
+                result.setSuggestions(new ArrayList<>());
+            } else {
+
+                if (result.getScore() == null) {
+                    result.setScore(score);
+                }
+
+                if (result.getProblems() == null) {
+                    result.setProblems(new ArrayList<>());
+                }
+
+                if (result.getSuggestions() == null) {
+                    result.setSuggestions(new ArrayList<>());
+                }
+            }
+
+            response.setAnalysisResult(result);
 
             return response;
 
@@ -73,22 +103,7 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
         }
     }
 
-    // ================= 核心修复：DeepSeek解析 =================
-    private String extractContent(String aiResult) {
-        try {
-            JsonNode root = objectMapper.readTree(aiResult);
-            return root.path("choices")
-                    .get(0)
-                    .path("message")
-                    .path("content")
-                    .asText();
-        } catch (Exception e) {
-            log.error("提取content失败，直接返回原数据");
-            return aiResult;
-        }
-    }
-
-    // ================= 评分优化 =================
+    // ===================== 评分 =====================
     private int calculateScore(AiHealthAnalysisRequestDto dto) {
 
         double calories = 0;
@@ -117,7 +132,7 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
         return v == null ? 0 : v.doubleValue();
     }
 
-    // ================= Prompt强化 =================
+    // ===================== Prompt =====================
     private String buildAnalysisPrompt(AiHealthAnalysisRequestDto dto, int score) {
 
         double cal = 0, p = 0, f = 0, c = 0;
@@ -132,27 +147,26 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
         }
 
         return """
-你是专业营养分析AI，只能输出JSON，禁止任何解释文字。
+你是专业健康分析AI，只输出JSON，不允许任何解释。
+
+必须返回严格JSON格式：
+
+{
+  "score": %d,
+  "evaluation": "良好|一般|较差",
+  "problems": ["问题1"],
+  "suggestions": ["建议1","建议2"]
+}
 
 数据：
 热量:%f
 蛋白质:%f
 脂肪:%f
 碳水:%f
-评分:%d
-
-必须严格返回：
-
-{
-  "score": %d,
-  "evaluation": "良好|一般|较差",
-  "problems": ["问题1"],
-  "suggestions": ["建议1"]
-}
-""".formatted(cal, p, f, c, score, score);
+""".formatted(score, cal, p, f, c);
     }
 
-    // ================= 构建数据 =================
+    // ===================== 用户数据 =====================
     private AiHealthAnalysisRequestDto buildUserHealthData(Integer userId, Integer days) {
 
         if (days == null || days <= 0) days = 7;
@@ -168,11 +182,15 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
         AppUser user = appUserMapper.selectById(userId);
 
         if (user != null) {
-            AiHealthAnalysisRequestDto.UserBasicInfo info = new AiHealthAnalysisRequestDto.UserBasicInfo();
+            AiHealthAnalysisRequestDto.UserBasicInfo info =
+                    new AiHealthAnalysisRequestDto.UserBasicInfo();
+
             info.setName(user.getName());
 
             if (user.getBirth() != null) {
-                info.setAge(Period.between(user.getBirth().toLocalDate(), LocalDate.now()).getYears());
+                info.setAge(
+                        Period.between(user.getBirth().toLocalDate(), LocalDate.now()).getYears()
+                );
             }
 
             dto.setUserBasicInfo(info);
@@ -187,7 +205,8 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
         if (list != null) {
             dto.setDietRecords(list.stream().map(r -> {
 
-                AiHealthAnalysisRequestDto.DietData d = new AiHealthAnalysisRequestDto.DietData();
+                AiHealthAnalysisRequestDto.DietData d =
+                        new AiHealthAnalysisRequestDto.DietData();
 
                 Food f = foodMapper.selectById(r.getFoodId());
                 FoodUnit u = foodUnitMapper.selectById(r.getFoodUnitId());
@@ -209,20 +228,7 @@ public class AiAnalyseServiceImpl implements AiAnalyseService {
         return dto;
     }
 
-    // ================= fallback =================
-    private AiHealthAnalysisResponseDto.AnalysisResult buildFallbackResult(int score) {
-        AiHealthAnalysisResponseDto.AnalysisResult r =
-                new AiHealthAnalysisResponseDto.AnalysisResult();
-
-        r.setScore(score);
-        r.setEvaluation("一般");
-
-        r.setProblems(List.of("AI解析失败"));
-        r.setSuggestions(List.of("请稍后重试"));
-
-        return r;
-    }
-
+    // ===================== error =====================
     private AiHealthAnalysisResponseDto buildErrorResponse(String msg) {
         AiHealthAnalysisResponseDto r = new AiHealthAnalysisResponseDto();
         r.setSuccess(false);
